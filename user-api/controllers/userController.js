@@ -112,6 +112,7 @@ exports.createOrder = async (req, res) => {
       endingHour: req.body.endingHour,
     };
     const workerResponse = await fetchData(useScheduleURL, orderData);
+    console.log("Worker Response: ", workerResponse);
     const workers = workerResponse.workerIds.map((worker) => worker.$oid);
     const newOrder = {
       customerId: user._id,
@@ -129,6 +130,7 @@ exports.createOrder = async (req, res) => {
       manhour: orderDetails.manhour,
     };
     const result = await fetchData(addOrderURL, newOrder);
+    console.log("Result: ", result);
     res.json(result);
   } else {
     res.status(404);
