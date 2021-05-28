@@ -1,6 +1,7 @@
 const protectingMiddleware = require("../controllers/protectRouteMiddleware");
 const users = require("../controllers/userController");
 const router = require("express").Router();
+const cors = require("cors");
 
 module.exports = (app) => {
   // Create a new user
@@ -16,7 +17,7 @@ module.exports = (app) => {
   router.post("/login", users.authUser);
 
   // Create new order
-  router.post("/createOrder", protectingMiddleware, users.createOrder);
+  router.post("/createOrder", cors(), protectingMiddleware, users.createOrder);
 
   // Retrieve user's profile
   router.get("/profile", protectingMiddleware, users.getUserProfile);
