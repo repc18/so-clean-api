@@ -64,6 +64,7 @@ exports.authUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         address: user.address,
+        area: user.area,
         email: user.email,
         phone: user.phone,
         paymentMethod: user.paymentMethod,
