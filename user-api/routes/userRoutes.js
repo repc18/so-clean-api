@@ -14,7 +14,7 @@ module.exports = (app) => {
   router.put("/", protectingMiddleware, users.update);
 
   // Authenticate user
-  router.post("/login", users.authUser);
+  router.post("/login", cors(), users.authUser);
 
   // Create new order
   router.post("/createOrder", cors(), protectingMiddleware, users.createOrder);
