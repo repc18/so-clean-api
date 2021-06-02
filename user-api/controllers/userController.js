@@ -112,8 +112,12 @@ exports.createOrder = async (req, res) => {
       startingHour: req.body.startingHour,
       endingHour: req.body.endingHour,
     };
-    const workerResponse = await fetchData(useScheduleURL, orderData);
-    console.log("Worker Response: ", workerResponse);
+    try {
+      const workerResponse = await fetchData(useScheduleURL, orderData);
+      console.log("Worker Response: ", workerResponse);
+    } catch (error) {
+      console.error(error);
+    }
     const workers = workerResponse.workerIds.map((worker) => worker.$oid);
     const newOrder = {
       customerId: user._id,
@@ -130,9 +134,13 @@ exports.createOrder = async (req, res) => {
       paymentMethod: orderDetails.paymentMethod,
       manhour: orderDetails.manhour,
     };
-    const result = await fetchData(addOrderURL, newOrder);
-    console.log("Result: ", result);
-    res.json(result);
+    try {
+      const result = await fetchData(addOrderURL, newOrder);
+      console.log("Result: ", result);
+      res.json(result);
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     res.status(404);
     return new Error("User not found");
